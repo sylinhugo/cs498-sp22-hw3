@@ -4,6 +4,7 @@ findspark.init()
 
 import pyspark
 import sys
+import re
 
 if len(sys.argv) != 3:
     raise Exception("Exactly 2 arguments are required: <inputUri><outputUri>")
@@ -14,7 +15,10 @@ outputUri = sys.argv[2]
 
 # takes an input, provides an output pairing
 def myMapFunc(x):
-    return (len(x) - x.count(" "), 1)
+    clean_x = re.sub("[^a-zA-Z]+", "", x)
+    res = len(clean_x)
+    # return (len(x) - x.count(" ") - x.count(",") - x.count("."), 1)
+    return (res, 1)
 
 
 # Merge two volumes with a common key - operation must be .... and commit
