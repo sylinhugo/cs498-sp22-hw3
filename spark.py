@@ -15,9 +15,13 @@ outputUri = sys.argv[2]
 
 # takes an input, provides an output pairing
 def myMapFunc(x):
-    clean_x = re.sub("[^a-zA-Z]+", "", x)
+    clean_x = re.sub(r"[^\w\s]", "", x)
+    clean_x = "".join(clean_x.split())
+    with open("output.txt", "a+") as file:
+        file.write(clean_x)
+        file.write("\n")
+
     res = len(clean_x)
-    # return (len(x) - x.count(" ") - x.count(",") - x.count("."), 1)
     return (res, 1)
 
 

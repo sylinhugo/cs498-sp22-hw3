@@ -19,10 +19,12 @@ app.get('/lengthCounts', (req, res) => {
         let splitted = data.split("\n");
         for (let i = 0; i < splitted.length; i++) {
             let splitLine = splitted[i].replace(/[() ]/g, '')
-            var split = splitLine.split(",");
-            var key = split[0];
-            var val = split[1];
-            obj[key] = val;
+            let split = splitLine.split(",");
+            let key = parseInt(split[0]);
+            let val = parseInt(split[1]);
+            if (!isNaN(key)) {
+                obj[key] = val;
+            }
         }
         // console.log(obj);
     });
@@ -34,10 +36,12 @@ app.get('/lengthCounts', (req, res) => {
         let splitted = data.split("\n");
         for (let i = 0; i < splitted.length; i++) {
             let splitLine = splitted[i].replace(/[() ]/g, '')
-            var split = splitLine.split(",");
-            var key = split[0];
-            var val = split[1];
-            obj[key] = val;
+            let split = splitLine.split(",");
+            let key = parseInt(split[0]);
+            let val = parseInt(split[1]);
+            if (!isNaN(key)) {
+                obj[key] = val;
+            }
         }
         console.log(obj);
         res.send(obj)
@@ -54,7 +58,7 @@ app.post('/analyze', (req, res) => {
     let jsonContent = JSON.stringify(req.body);
     console.log(jsonContent);
 
-    fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
+    fs.writeFile("testcase.json", jsonContent, 'utf8', function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
